@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2048 RL Visualizer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+      <h1>2048 RL<br>Visualizer</h1>
+
+      <div class="section">
+        <h2>Load Replay</h2>
+        <label class="file-btn" for="fileInput">Choose JSON file</label>
+        <input type="file" id="fileInput" accept=".json" />
+        <div id="fileStatus" class="status-msg">No file loaded</div>
+      </div>
+
+      <div class="section">
+        <h2>Epoch Selector</h2>
+        <select id="epochSelect" disabled>
+          <option value="">— load a file —</option>
+        </select>
+      </div>
+
+      <div class="section">
+        <h2>Playback</h2>
+        <div class="playback-row">
+          <button id="btnPrev" title="Previous step">&#9664;&#9664;</button>
+          <button id="btnPlay" title="Play / Pause">&#9654;</button>
+          <button id="btnNext" title="Next step">&#9654;&#9654;</button>
+        </div>
+        <div class="speed-row">
+          <span>Speed:</span>
+          <button class="speed-btn active" data-speed="1">1x</button>
+          <button class="speed-btn" data-speed="0.5">0.5x</button>
+          <button class="speed-btn" data-speed="2">2x</button>
+          <button class="speed-btn" data-speed="5">5x</button>
+          <button class="speed-btn" data-speed="10">10x</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <button id="btnExport" class="export-btn">&#9673; Export Video (.webm)</button>
+        <div id="recIndicator" class="rec-hidden">&#11044; REC</div>
+      </div>
+    </aside>
+
+    <!-- BOARD AREA -->
+    <main id="boardArea">
+      <div id="actionArrow" class="action-arrow"></div>
+      <div id="boardWrapper">
+        <div id="board"></div>
+      </div>
+      <div id="stepSliderWrapper">
+        <input type="range" id="stepSlider" min="0" max="0" value="0" />
+      </div>
+    </main>
+
+    <!-- METRICS PANEL -->
+    <aside id="metricsPanel">
+      <h2>Metrics</h2>
+
+      <div class="metric-card">
+        <div class="metric-label">Epoch</div>
+        <div class="metric-value" id="mEpoch">—</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Episode</div>
+        <div class="metric-value" id="mEpisode">—</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Score</div>
+        <div class="metric-value" id="mScore">—</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Max Tile</div>
+        <div class="metric-value" id="mMaxTile">—</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Step</div>
+        <div class="metric-value" id="mStep">—</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Action</div>
+        <div class="metric-value" id="mAction">—</div>
+      </div>
+
+      <h2 style="margin-top:1.5rem;">Score Progress</h2>
+      <canvas id="scoreChart" width="220" height="130"></canvas>
+
+      <h2 style="margin-top:1.5rem;">Tile Distribution</h2>
+      <canvas id="tileChart" width="220" height="100"></canvas>
+    </aside>
+  </div>
+
+  <!-- hidden canvas used only for video export -->
+  <canvas id="exportCanvas" width="480" height="480" style="display:none;"></canvas>
+
+  <script src="visualizer.js"></script>
+</body>
+</html>
