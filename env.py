@@ -30,13 +30,13 @@ class Game2048Env(gym.Env):
         _, changed = self.game.step(action)
 
         if not changed:
-            reward = -1.0
+            reward = -10.0
         else:
             reward = float(self.game.score - prev_score)
 
         terminated = self.game.is_done()
         truncated = False
-        info = {"score": self.game.score, "max_tile": self.game.max_tile}
+        info = {"score": self.game.score, "max_tile": self.game.max_tile, "changed": changed}
 
         return self._obs(), reward, terminated, truncated, info
 

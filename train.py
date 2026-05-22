@@ -43,8 +43,9 @@ def run_episode(env, agent, record=False):
 
         next_obs, reward, terminated, truncated, info = env.step(action)
         done = terminated or truncated
+        changed = info["changed"]
 
-        if record:
+        if record and changed:
             steps_log.append({
                 "board": board_snapshot,
                 "score": score_snapshot,
