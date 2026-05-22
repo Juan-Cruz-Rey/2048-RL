@@ -1,6 +1,7 @@
 import json
 import os
 import numpy as np
+import torch
 from env import Game2048Env
 from agent import DQNAgent
 
@@ -63,6 +64,11 @@ def run_episode(env, agent, record=False):
 
 
 def main():
+    if torch.cuda.is_available():
+        print(f"GPU: {torch.cuda.get_device_name(0)}")
+    else:
+        print("GPU not available — running on CPU")
+
     env = Game2048Env()
     agent = DQNAgent()
 

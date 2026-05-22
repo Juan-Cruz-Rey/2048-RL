@@ -10,9 +10,11 @@ class DQNNetwork(nn.Module):
     def __init__(self, state_size=16, action_size=4):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(state_size, 256),
+            nn.Linear(state_size, 512),
             nn.ReLU(),
-            nn.Linear(256, 256),
+            nn.Linear(512, 512),
+            nn.ReLU(),
+            nn.Linear(512, 256),
             nn.ReLU(),
             nn.Linear(256, action_size),
         )
@@ -48,13 +50,13 @@ class DQNAgent:
         self,
         state_size=16,
         action_size=4,
-        lr=1e-3,
+        lr=3e-4,
         gamma=0.99,
         epsilon=1.0,
         epsilon_min=0.01,
         epsilon_decay=0.9995,
-        buffer_size=50000,
-        batch_size=64,
+        buffer_size=100000,
+        batch_size=512,
     ):
         self.state_size = state_size
         self.action_size = action_size
